@@ -421,6 +421,58 @@ code{background:rgba(255,255,255,0.07);padding:1px 6px;border-radius:4px;font-fa
 #app.is-admin .admin-col{display:table-cell;}
 .admin-col{display:none;}
 #app.is-admin table thead th.admin-col{display:table-cell;}
+
+/* ── 여기서부터 모바일 최적화 코드 시작 (기존 스타일 맨 아래 추가) ── */
+@media screen and (max-width: 768px) {
+  /* 1. 전체 레이아웃 모바일 대응 */
+  #app { flex-direction: column; overflow-y: auto; }
+  #sidebar { 
+    width: 100% !important; min-width: 100% !important; 
+    height: auto !important; border-right: none; border-bottom: 1px solid var(--border);
+  }
+  .sb-nav { display: flex; overflow-x: auto; padding: 5px 0; }
+  .nav-item { padding: 10px 15px; border-left: none; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .nav-item.active { border-left-color: transparent; border-bottom-color: var(--gold); }
+  .sb-logo, .sb-user, .sb-bottom, .sb-section { display: none; } /* 모바일 가독성을 위해 불필요요소 숨김 */
+
+  /* 2. 메인 컨텐츠 영역 확장 */
+  .topbar { padding: 10px 15px; flex-wrap: wrap; }
+  .topbar h1 { font-size: 15px; }
+  .content { padding: 15px; }
+
+  /* 3. 그리드 시스템 (4~6열 -> 2열로 변경) */
+  .sg4, .sg5, .sg6, .dash-grid { 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 10px !important; 
+  }
+  .stat-card { padding: 12px; }
+  .stat-card .s-val { font-size: 16px; }
+
+  /* 4. 테이블 스크롤 처리 (표가 잘리지 않게) */
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  table { min-width: 600px; } /* 최소 너비를 확보하여 데이터 겹침 방지 */
+
+  /* 5. 로그인 페이지 최적화 */
+  .login-wrap { width: 90%; }
+  .login-card { padding: 25px; }
+
+  /* 6. 기타 요소 (버튼, 입력창) 터치 최적화 */
+  .btn, .btn-login { min-height: 48px; display: flex; align-items: center; justify-content: center; }
+  input[type="text"], input[type="number"], select { font-size: 16px !important; padding: 12px; }
+  
+  /* 7. 하단 고정 탭 메뉴처럼 보이게 사이드바 재배치 */
+  #sidebar {
+    position: fixed; bottom: 0; left: 0; z-index: 1000;
+    background: #061132;
+  }
+  .content { padding-bottom: 80px; } /* 하단바 공간 확보 */
+}
+/* ── 모바일 최적화 코드 끝 ── */
+  
 </style>
 </head>
 <body>
